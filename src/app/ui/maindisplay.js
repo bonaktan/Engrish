@@ -1,3 +1,7 @@
 export default function MainDisplay() {
-    return <p>tite</p>
+    return (
+        <div>
+            <p>TestTextBubble1</p>
+        </div>
+    )
 }
