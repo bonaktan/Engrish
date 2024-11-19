@@ -37,11 +37,15 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    white-space: pre-wrap;
 }
-body * {border: 1px solid black;}
+/* body * {border: 1px solid black;} */
 
 .user-main {
     background-color: var(--body);
+}
+.user-maindisplay-chatbubble {
+    background-color: var(--body-transcript);
 }
 .user-foot {
     color: var(--text-foot);

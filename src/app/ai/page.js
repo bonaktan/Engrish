@@ -4,8 +4,8 @@ import MainDisplay from "../ui/maindisplay";
 
 export default function AIPage() {
     return (
-        <div>
-            <div className="user-main">
+        <div className="flex flex-col h-screen">
+            <div className="user-main flex-grow flex flex-col">
                 <Header/>
                 <MainDisplay/>
             </div>
