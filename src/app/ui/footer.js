@@ -1,17 +1,18 @@
-const corrections = "yan kasi kung ano pinagsasasabi tangina mo ahhhh"
+import { corrections } from "../api/conversations";
+
 export default function Footer() {
     return (
-        <div className="user-foot">
-            <div className="user-corrections">
-                <div className="bg-footercorrections/[.16] mx-8 my-4">
+        <div>
+            <div>
+                <div>
                     <p>{corrections}</p>
                 </div>
             </div>
-            <diiv className="user-nav flex flex-row justify-around gap-20">
-                <div className="user-morebutton">
+            <diiv>
+                <div>
                     <button>...</button>
                 </div>
-                <div className="user-plusbutton">
+                <div>
                     <button>NewConvo</button>
                 </div>
             </diiv>
