@@ -1,4 +1,3 @@
-import receiveUserInput from "@/app/api/receiveUserInput"
-export default function UserControls() {
-    return <button onClick={receiveUserInput}>Send Input</button>
+export default function UserControls({handleAddConvo}) {
+    return <button onClick={handleAddConvo}>Send Input</button>
 }

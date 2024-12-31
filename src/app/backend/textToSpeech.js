@@ -3,4 +3,5 @@ export default async function textToSpeech() {
     console.log("responseGenerator received - textToSpeech")
     await sleep(3000)
     console.log("simulated tts generation - textToSpeech")
+    return {type: "ttsGeneration", audio: "NO AUDIO YET - textToSpeech()"}
 }

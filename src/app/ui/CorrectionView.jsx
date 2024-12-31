@@ -1,3 +1,3 @@
-export default function CorrectionView() {
-    return <p>Correction</p>
+export default function CorrectionView({correction}) {
+    return <p>{correction}</p>
 }
