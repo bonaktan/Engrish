@@ -8,6 +8,7 @@ import Header from "@/app/ui/Header";
 
 export default function Home() {
     const { convo, correction, handleAddConvo, setCorrection } = useConversation();
+    // eto main na frame ng app natin
     return (
         <main className="flex flex-col h-dvh">
             <Header />
