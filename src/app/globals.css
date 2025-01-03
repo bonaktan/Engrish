@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --top-background: #b2ae9a;
+    --bottom-background: #2a3663;
+    --shadow-background: 
+    
+}
 body * {
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
