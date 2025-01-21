@@ -5,8 +5,20 @@ export default function ConversationView({convo}) {
         <div className="flex-grow">
             {/* wag kayo matakot sa itsura ng ano, ginagawa lang nya iniisa isa yung items sa loob ng convo*/}
             {convo.map((message, key) => {
-                return <p key={key}>{message}</p>
+                // in messages, theres 4 vars that are used
+                // timestamp: time kung kelan sinend     
+                // message: message
+                // sender: sino nagsnd, system, ai, or user
+                // corrections: for user sender, anong mga mali
+                const time = new Date(message.time)
+                return (
+                    <div key={key} className="flex">
+                        <p>{time.getHours()}:{time.getMinutes()}</p>
+                        <p>{message.message}</p>
+                    </div>
+                )
             })}
+            <p>test</p>
         </div>
     )
 }
