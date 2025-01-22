@@ -4,7 +4,7 @@ import speechToText from "../backend/speechtotext";
 import { Message } from "../backend/structures";
 
 export default function useConversation() {
-    const [convo, addConvo] = useReducer(updateConvo, [new Message("AI", "testing Engrish if the components are properly linked to each other - useConversation()")]);
+    const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "testing Engrish if the components are properly linked to each other - useConversation()")]);
     const [correction, setCorrection] = useState("-");
     async function handleAddConvo(e) {
         // entrypoint of the convo loop, initiated in app/ui/UserControls.jsx
@@ -13,7 +13,7 @@ export default function useConversation() {
         addConvo({sender: "user", message: userInput}); // calls updateConvo()
         var { grammarFeedback, llmGeneration } = await speechToText(userInput); // TODO: Refactor
         setCorrection(grammarFeedback.output);
-        addConvo({sender: "user", message: llmGeneration.output});
+        addConvo({sender: "ai", message: llmGeneration.output});
         // TODO: play the audio output that llmGeneration.audio gives
     }
     return { convo, correction, handleAddConvo, setCorrection };
