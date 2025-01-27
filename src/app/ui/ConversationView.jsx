@@ -12,9 +12,11 @@ export default function ConversationView({ convo }) {
                 // corrections: for user sender, anong mga mali
                 const time = new Date(message.time).toLocaleTimeString("en-BR", { hour: "2-digit", minute: "2-digit" });
                 return (
-                    <div key={key} className={"message-view flex items-center"}>
-                        <p className="flex-shrink-0 mr-2">{time}</p> {/* subject to design choices */}
-                        <p>{message.message}</p>
+                    <div key={key} className="items-center">
+                        <div className={"message-view flex " + (message.sender=="ai" ? "text-left mr-auto" : "text-right ml-auto")}>
+                            {/* <p className="flex-shrink-0 mr-2">{time}</p> subject to design choices */}
+                            <p>{message.message}</p>
+                        </div>
                     </div>
                 );
             })}

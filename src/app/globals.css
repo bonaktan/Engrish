@@ -10,18 +10,20 @@
     --correction-color: #2a3663;
     --text-color: #5e5c53;
 }
+
+body {
+    font-size: 0.75em;
+}
 .header {
     font-family: "Times New Roman", Times, serif;
-    font-size: 25px;
+    font-size: 1rem;
 }
 .message-view {
     background-color: var(--top-background);
-    padding: 10px 1rem;
-    border-radius: 1.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    font-size: 1rem;
-    max-width: 100%;
-
+    max-width: 75%;
 }
 .convo-view {
     padding: 30px;
@@ -34,13 +36,13 @@
 }
 
 .p {
-    font-size: 50px; 
+    font-size: 50px;
 }
-.correction-view{
-   padding: 2rem;
-   background-color: var(--top-background);
-   border-radius: 0 0 0.5rem 0.5rem;
-   overflow-y: auto;
-   display: flex;
-gap: 0.5rem;
+.correction-view {
+    padding: 2rem;
+    background-color: var(--top-background);
+    border-radius: 0 0 0.5rem 0.5rem;
+    overflow-y: auto;
+    display: flex;
+    gap: 0.5rem;
 }
