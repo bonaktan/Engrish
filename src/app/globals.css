@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-    --top-background: #b2ae9a;
+    --top-background: rgb(178, 174, 154);
     --bottom-background: #2a3663;
-    --message-color: #b2ae9a;
+    --message-color: rgba(178, 174, 154, 0.5);
     --convo-color: #faf6e3;
     --correction-color: #2a3663;
     --text-color: #5e5c53;
@@ -14,10 +14,12 @@
 body {
     font-size: 0.75em;
 }
+
 .header {
     font-family: "Times New Roman", Times, serif;
     font-size: 1rem;
 }
+
 .message-view {
     background-color: var(--top-background);
     padding: 0.75rem 1rem;
@@ -25,6 +27,7 @@ body {
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     max-width: 75%;
 }
+
 .convo-view {
     padding: 30px;
     background-color: var(--top-background);
@@ -38,6 +41,7 @@ body {
 .p {
     font-size: 50px;
 }
+
 .correction-view {
     padding: 2rem;
     background-color: var(--top-background);
@@ -45,4 +49,25 @@ body {
     overflow-y: auto;
     display: flex;
     gap: 0.5rem;
+}
+
+.darkBlue {
+    position: relative;
+    background-color: var(--bottom-background);
+    max-width: 100%;
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blue {
+    background-color: var(--message-color);
+    border-radius: 1em;
+    width: 90%;
+    height: 4rem
+}
+
+.blue>p {
+    margin: .5em
 }
