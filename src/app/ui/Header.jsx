@@ -1,14 +1,13 @@
 export default function Header() {
     const version = "0.2.0"
     return (
-        <div className="text-center header flex justify-evenly items-center">
-            <div><ion-icon name="menu-outline" size="large"></ion-icon></div>
+        <div className="text-center header flex justify-evenly items-center flex-grow-0 flex-shrink-0">
+            <div>{/* TODO: menu */}</div>
             <div>
-                <h1>Engrish - Development</h1>
+                <h1 className="text-xl">Engrish - Development</h1>
                 <p>Ver. {version}</p>
-                {/* <i class="fa-solid fa-wave-square"></i> add wave*/}
             </div>
-           <p></p>
+           <div>{/* TODO: history */}</div>
         </div>
     )
 }
