@@ -1,10 +1,13 @@
-from bottle import app, route, run
+from bottle import app, route, run, get
+from bottle.ext.websocket import GeventWebSocketServer
+from bottle.ext.websocket import websocket
 
+@get('/websocket', apply=[websocket])
+def echo(ws):
+    while True:
+        msg = ws.receive()
+        if msg is not None:
+            ws.send(msg)
+        else: break
 
-
-@route("/api/userInput")
-def microphoneInput():
-    return "isang malaking tite"
-
-
-run(host="127.0.0.1", port=8000, reloader=True)
+run(host='127.0.0.1', port=8080, server=GeventWebSocketServer)
