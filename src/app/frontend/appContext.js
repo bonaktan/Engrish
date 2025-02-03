@@ -4,8 +4,8 @@ import speechToText from "../backend/speechtotext";
 import { Message } from "../backend/structures";
 import { io } from "socket.io-client";
 
+const socket = io("http://localhost:8765")
 export default function useConversation() {
-    const socket = io("http://localhost:8765");
     const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "good morning! i am engrish, a pre-programmed something kinemerut, kausapin mo kooo")]);
     const [correction, setCorrection] = useState("-");
     const [connected, setConnected] = useState(socket.connected)
