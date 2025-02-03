@@ -5,12 +5,14 @@ import UserControls from "@/app/ui/UserControls";
 import { useState } from "react";
 import useConversation from "./frontend/appContext";
 import Header from "@/app/ui/Header";
+import SidebarView from "./ui/SidebarView";
 
 export default function Home() {
     const { convo, correction, handleAddConvo, setCorrection } = useConversation();
     // eto main na frame ng app natin
     return (
         <>
+            <SidebarView/>
             <main className="flex flex-col h-dvh">
                 <Header />
                 <ConversationView convo={convo} />
