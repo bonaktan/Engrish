@@ -1,5 +1,5 @@
 export default function Header() {
-    const version = "0.2.0"
+    const version = "0.3.0"
     return (
         <div className="text-center header flex justify-evenly items-center flex-grow-0 flex-shrink-0">
             <div>{/* TODO: menu */}</div>
