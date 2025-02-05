@@ -19,7 +19,7 @@ def connect(sid, environ):
     print("connect ", sid)
 
 @sio.event
-async def user_input(sid, userInput):
+async def user_output(sid, userInput):
     print("message ", userInput)
     await textToSpeech(userInput)
 
@@ -27,10 +27,13 @@ async def user_input(sid, userInput):
 def disconnect(sid):
     print('disconnect ', sid)
 
-async def textToSpeech(userInput):
+
+async def speechToText(userInput):
     sleep(2)
     print(f"userInput: {userInput}")
-    await asyncio.gather(grammarCheck(userInput), llmGenerate(userInput))
+    sttOutput = "kunwari eto sinabi ko"
+    await sio.emit("user_input", sttOutput)
+    await asyncio.gather(grammarCheck(sttOutput), llmGenerate(sttOutput))
 
 async def grammarCheck(userInput):
     sleep(1)
@@ -45,7 +48,9 @@ async def llmGenerate(userInput):
     await sio.emit("llm_output", generation)
     await speechToText(generation)
 
-async def speechToText(generation):
+
+
+async def textToSpeech(generation):
     # there could be settings here depende kung anong speech engine want mo gamitin, gtts or pyttsx3
     # mp3Audio = io.BytesIO()
     speechEngine.say(generation)
@@ -55,6 +60,9 @@ async def speechToText(generation):
     # await sio.emit("llm_voice", mp3Audio)
     # llmAudio.save("testing.mp3")
     # os.system("start testing.mp3")
+
+
+
 
 app.router.add_get('/', index)
 
