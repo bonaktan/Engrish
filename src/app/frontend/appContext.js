@@ -14,10 +14,8 @@ export default function useConversation() {
         const userInput = "wala pa kong audio input functionality here, kunwari nagsalita ako ng ganto"; // TODO: audio component
         addConvo({sender: "user", message: userInput}); // calls updateConvo()
         // var { grammarFeedback, llmGeneration } 
-        await socket.emit("user_input", userInput); // TODO: Refactor
-        // setCorrection(grammarFeedback.output);
-        // addConvo({sender: "ai", message: llmGeneration.output});
-        // TODO: play the audio output that llmGeneration.audio gives
+        await socket.emit("user_output", userInput); // TODO: Refactor
+
     }
     useEffect(() => {
         function onConnect() {
@@ -32,28 +30,27 @@ export default function useConversation() {
         function onLLMOutput(output) {
             addConvo(new Message("ai", output))
         }
+        function onUserInput(output) {
+            addConvo(new Message("user", output))
+        }
 
         socket.on("connect", onConnect)
         socket.on("disconnect", onDisconnect)
         socket.on("grammar_check", onGrammarChecker)
         socket.on("llm_output", onLLMOutput)
+        socket.on("user_input", onUserInput)
 
         return () => {
             socket.off("connect", onConnect)
             socket.off("disconnect", onDisconnect)
             socket.off("grammar_check", onGrammarChecker)
             socket.off("llm_output", onLLMOutput)
+            socket.off("user_input", onUserInput)
         }
     })
-    return { convo, correction, handleAddConvo, setCorrection};
+    return { convo, correction, connected, handleAddConvo, setCorrection};
 }
 
 function updateConvo(convo, message) {
     return [...convo, new Message(message.sender, message.message)]; // WARN: no data processing is done
-}
-
-
-async function startGeneration(userInput) {
-    
-
 }
