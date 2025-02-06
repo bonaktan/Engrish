@@ -5,19 +5,21 @@ import UserControls from "@/app/ui/UserControls";
 import { useState } from "react";
 import useConversation from "./frontend/useConversation";
 import Header from "@/app/ui/Header";
+import SidebarView from "./ui/SidebarView";
 
 export default function Home() {
     const { convo, correction, setCorrection } = useConversation();
+    const [sidebarOpened, toggleOpen] = useReducer((state) => {return !state}, false )
     // eto main na frame ng app natin
     return (
         <>
+            <SidebarView open={sidebarOpened} toggleSidebar={toggleOpen}/>
             <main className="flex flex-col h-dvh">
-                <Header />
+                <Header toggleSidebar={toggleOpen}/>
                 <ConversationView convo={convo} />
                 <CorrectionView correction={correction} />
                 <UserControls/>
             </main>
         </>
-        
     );
 }

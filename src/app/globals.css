@@ -55,7 +55,6 @@ body {
     gap: 0.5rem;
 }
 
-
 .correction-box {
     background-color: var(--correction-color);
     border-radius: 1rem;
@@ -73,4 +72,64 @@ body {
     background-color: var(--correction-color);
     padding: 1rem;
     border-radius: 2rem;
+}
+
+.sideBar {
+    position: absolute;
+    height: 100dvh;
+    width: 15rem;
+    background-color: #6488ea; /* TODO: to be changed sa color scheme ng program */
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: top;
+    text-align: left;
+    padding: 1rem;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 auto;
+}
+.sidebarheader {
+    flex: 0 0 auto;
+}
+.sidebarOptions {
+    margin: -0.5rem;
+    flex: 1 1 100%; /* baka need idebug? */
+}
+.sidebarOptions > .option {
+    margin: 0.5rem 0;
+}
+.sidebarOptions > .option > p {
+    display: flex;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.aboutUs {
+    flex: 0 0 auto;
+}
+#button {
+    position: relative;
+    left: 200px;
+    top: 35px;
+}
+#checkbox {
+    position: relative;
+    left: 155px;
+}
+#engrish {
+    position: relative;
+    left: 80px;
+}
+#gtts {
+    position: relative;
+    left: 75px;
+}
+#pyttsx3 {
+    position: relative;
+    left: 25px;
+}
+
+.menu {
+    color: black;
+    cursor: pointer;
 }

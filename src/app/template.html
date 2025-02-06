@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <style>
+            .sideBar {
+                position: absolute;
+                height: 100dvh;
+                width: 15rem;
+                background-color: #6488ea; /* TODO: to be changed sa color scheme ng program */
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                flex-direction: column;
+                align-items: top;
+                text-align: left;
+                padding: 1rem;
+                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+                flex: 1 1 auto;
+            }
+            .sidebarheader {
+                flex: 0 0 auto;
+            }
+            .sidebarOptions {
+                margin: -0.5rem;
+                flex: 1 1 100%; /* baka need idebug? */
+            }
+            .sidebarOptions > .option {
+                margin: 0.5rem 0;
+            }
+            .sidebarOptions > .option > p {
+                display: flex;
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+            .aboutUs {
+                flex: 0 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sideBar">
+            <div class="sidebarHeader">
+                <p>ENGRISH</p>
+                <button>X</button>
+            </div>
+            <div class="sidebarOptions">
+                <div class="option" id="optionTTSEngine">
+                    <p>Text-to-Speech Engine</p>
+                    <div class="selection">
+                        <label>pyttsx3 <input type="radio" /></label>
+                        <label>gtts <input type="radio" /></label>
+                    </div>
+                </div>
+                <div class="option" id="optionAIVoice">
+                    <p>
+                        <label>AI Voice <input type="checkbox" /></label>
+                    </p>
+                </div>
+            </div>
+            <div class="aboutUs">
+                <div>About Us</div>
+            </div>
+        </div>
+    </body>
+</html>
