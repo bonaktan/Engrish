@@ -7,13 +7,16 @@ import pyttsx3
 import base64
 import speech_recognition as sr
 import ffmpeg
+from dotenv import load_dotenv
+from openai import OpenAI
 
+load_dotenv()
 speechEngine = pyttsx3.init()
-
 r = sr.Recognizer()
 sio = socketio.AsyncServer(cors_allowed_origins="*")
 app = web.Application()
 sio.attach(app)
+client = OpenAI()
 
 
 async def index(request):
@@ -29,7 +32,8 @@ def connect(sid, environ):
 @sio.event
 async def user_input(sid, userInput):
     print("message ", userInput)
-    if None: pass
+    if None:
+        pass
     else:
         with open("cache.wav", "wb") as fh:
             fh.write(base64.decodebytes(userInput.encode("ascii")))
@@ -44,11 +48,12 @@ def disconnect(sid):
 async def speechToText():
     # input: the write operation in user_input
     # needed to convert input to lossless
-    (ffmpeg
-        .input("cache.wav")
+    (
+        ffmpeg.input("cache.wav")
         .output("cache.flac")
         .overwrite_output()
-        .run(capture_stdout=False, capture_stderr=False))
+        .run(capture_stdout=False, capture_stderr=False)
+    )
     input = sr.AudioFile("cache.flac")
     with input as source:
         audio = r.record(source)
@@ -65,13 +70,17 @@ async def grammarCheck(userInput):
 
 
 async def llmGenerate(userInput):
-    sleep(3)
-    generation = "Hey! I'm ChatGPT, a virtual assistant powered by AI, here to help with anything you need. Whether it’s answering questions, having a casual chat, or helping out with projects, I’ve got you covered. What’s on your mind today?"
+    llmResponse = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},  #that simulates a human person conversing with another person."},
+            {"role": "user", "content": "Say this is a test"},
+        ],
+    )
+    generation = llmResponse.choices[0].message.content
     print(f"llmGenerate: {generation}")
     await sio.emit("llm_output", generation)
     await textToSpeech(generation)  # apparently its a blocking operation
-
-
 
 
 async def textToSpeech(generation):
