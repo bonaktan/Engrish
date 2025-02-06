@@ -13,7 +13,7 @@ export default function Home() {
     // eto main na frame ng app natin
     return (
         <>
-            <SidebarView open={sidebarOpened} />
+            <SidebarView open={sidebarOpened} toggleSidebar={toggleOpen}/>
             <main className="flex flex-col h-dvh">
                 <Header toggleSidebar={toggleOpen}/>
                 <ConversationView convo={convo} />
