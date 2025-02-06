@@ -82,7 +82,6 @@ body {
   z-index: 1000;
   top: 0;
   left: 0;
-  display: block;
   justify-content: space-between;
   text-align: center;
   box-shadow: rgba(15px, 15px, 15px, 0.4);
