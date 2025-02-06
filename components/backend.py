@@ -4,36 +4,58 @@ import socketio
 from time import sleep
 import gtts, os, io
 import pyttsx3
+import base64
+import speech_recognition as sr
+import ffmpeg
+
 speechEngine = pyttsx3.init()
 
+r = sr.Recognizer()
 sio = socketio.AsyncServer(cors_allowed_origins="*")
 app = web.Application()
 sio.attach(app)
+
 
 async def index(request):
     """Serve the client-side application."""
     return "test"
 
+
 @sio.event
 def connect(sid, environ):
     print("connect ", sid)
 
+
 @sio.event
 async def user_output(sid, userInput):
     print("message ", userInput)
-    await textToSpeech(userInput)
+    if None: pass
+    else:
+        with open("cache.wav", "wb") as fh:
+            fh.write(base64.decodebytes(userInput.encode("ascii")))
+        await speechToText()
+
 
 @sio.event
 def disconnect(sid):
-    print('disconnect ', sid)
+    print("disconnect ", sid)
 
 
-async def speechToText(userInput):
-    sleep(2)
-    print(f"userInput: {userInput}")
-    sttOutput = "kunwari eto sinabi ko"
-    await sio.emit("user_input", sttOutput)
+async def speechToText():
+    # input: the write operation in user_input
+    # needed to convert input to lossless
+    (ffmpeg
+        .input("cache.wav")
+        .output("cache.flac")
+        .overwrite_output()
+        .run(capture_stdout=False, capture_stderr=False))
+    input = sr.AudioFile("cache.flac")
+    with input as source:
+        audio = r.record(source)
+        sttOutput = r.recognize_sphinx(audio)
+    print(f"userInput: {sttOutput}")
     await asyncio.gather(grammarCheck(sttOutput), llmGenerate(sttOutput))
+
 
 async def grammarCheck(userInput):
     sleep(1)
@@ -41,12 +63,14 @@ async def grammarCheck(userInput):
     print(f"grammarCheck: {correction}")
     await sio.emit("grammar_check", correction)
 
+
 async def llmGenerate(userInput):
     sleep(3)
     generation = "Hey! I'm ChatGPT, a virtual assistant powered by AI, here to help with anything you need. Whether it’s answering questions, having a casual chat, or helping out with projects, I’ve got you covered. What’s on your mind today?"
     print(f"llmGenerate: {generation}")
     await sio.emit("llm_output", generation)
-    await speechToText(generation)
+    await speechToText(generation)  # apparently its a blocking operation
+
 
 
 
@@ -62,9 +86,7 @@ async def textToSpeech(generation):
     # os.system("start testing.mp3")
 
 
+app.router.add_get("/", index)
 
-
-app.router.add_get('/', index)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     web.run_app(app, port=8765)
