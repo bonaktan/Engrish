@@ -1,5 +1,5 @@
 export default function Header({toggleSidebar}) {
-  const version = "0.3.0";
+  const version = "0.4.0";
   return (
     <div className="text-center header flex justify-evenly items-center flex-grow-0 flex-shrink-0">
       <button className="menu" onClick={toggleSidebar}>Sidebar</button>
