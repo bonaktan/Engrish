@@ -4,6 +4,7 @@ import socketio
 from time import sleep
 import gtts, os, io
 import pyttsx3
+import base64
 speechEngine = pyttsx3.init()
 
 sio = socketio.AsyncServer(cors_allowed_origins="*")
@@ -21,6 +22,9 @@ def connect(sid, environ):
 @sio.event
 async def user_input(sid, userInput):
     print("message ", userInput)
+    with open("test.wav", "wb") as fh:
+        print(base64.decodebytes(userInput.encode("ascii")))
+        fh.write(base64.decodebytes(userInput.encode("ascii")))
     await textToSpeech(userInput)
 
 @sio.event
@@ -43,7 +47,7 @@ async def llmGenerate(userInput):
     generation = "Hey! I'm ChatGPT, a virtual assistant powered by AI, here to help with anything you need. Whether it’s answering questions, having a casual chat, or helping out with projects, I’ve got you covered. What’s on your mind today?"
     print(f"llmGenerate: {generation}")
     await sio.emit("llm_output", generation)
-    await speechToText(generation)
+    await speechToText(generation) # apparently its a blocking operation
 
 async def speechToText(generation):
     # there could be settings here depende kung anong speech engine want mo gamitin, gtts or pyttsx3
