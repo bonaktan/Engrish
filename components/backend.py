@@ -27,7 +27,7 @@ def connect(sid, environ):
 
 
 @sio.event
-async def user_output(sid, userInput):
+async def user_input(sid, userInput):
     print("message ", userInput)
     if None: pass
     else:
@@ -69,7 +69,7 @@ async def llmGenerate(userInput):
     generation = "Hey! I'm ChatGPT, a virtual assistant powered by AI, here to help with anything you need. Whether it’s answering questions, having a casual chat, or helping out with projects, I’ve got you covered. What’s on your mind today?"
     print(f"llmGenerate: {generation}")
     await sio.emit("llm_output", generation)
-    await speechToText(generation)  # apparently its a blocking operation
+    await textToSpeech(generation)  # apparently its a blocking operation
 
 
 

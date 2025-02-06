@@ -2,7 +2,7 @@
 import ConversationView from "@/app/ui/ConversationView";
 import CorrectionView from "@/app/ui/CorrectionView";
 import UserControls from "@/app/ui/UserControls";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import useConversation from "./frontend/useConversation";
 import Header from "@/app/ui/Header";
 import SidebarView from "./ui/SidebarView";
