@@ -33,7 +33,9 @@ export default function useUserControls() {
                     };
 
                     mediaRecorder.onstop = (event) => {
-                        const b = new Blob(audio, { type: "audio/wav" });
+                        // PROBLEM: on some devices, recording on pcm-wav is not supported
+                        const b = new Blob(audio, { type: "audio/wav;codecs=0" });
+                        // setAudioBlob(b)
                         var reader = new window.FileReader();
                         reader.readAsDataURL(b);
                         reader.onloadend = function () {
