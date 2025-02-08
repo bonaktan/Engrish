@@ -41,3 +41,6 @@ next-env.d.ts
 
 components/.venv
 components/cache*
+components/preprocessed.wav
+components/postprocessed.wav
+components/__pycache__/

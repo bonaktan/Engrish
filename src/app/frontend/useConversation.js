@@ -23,20 +23,25 @@ export default function useConversation() {
             function onLLMOutput(output) {
                 addConvo(new Message("ai", output))
             }
+            function onSTTOutput(output) {
+                addConvo(new Message("user", output))
+            }
     
             socket.on("connect", onConnect)
             socket.on("disconnect", onDisconnect)
             socket.on("grammar_check", onGrammarChecker)
             socket.on("llm_output", onLLMOutput)
+            socket.on("stt_output", onSTTOutput)
     
             return () => {
                 socket.off("connect", onConnect)
                 socket.off("disconnect", onDisconnect)
                 socket.off("grammar_check", onGrammarChecker)
                 socket.off("llm_output", onLLMOutput)
+                socket.off("stt_output", onSTTOutput)
             }
         })
-    return {convo, correction};
+    return {convo, correction, connected};
 }
 
 function updateConvo(convo, message) {
