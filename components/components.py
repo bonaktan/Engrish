@@ -5,7 +5,6 @@ from openai import OpenAI  # LLM Engine
 import pyttsx3, gtts  # TextToSpeech Engines
 import sounddevice, soundfile  # for playing back audio in gTTS Engine
 from dotenv import load_dotenv
-
 load_dotenv()
 
 class SpeechToText:
@@ -34,10 +33,15 @@ class GrammarChecker:
 
 
 class LargeLanguageModel:
-    def __init__(self):
-        self.llmClient = OpenAI()
+    def __init__(self, simulate):
+        self.simulate = simulate
+        if simulate:
+            self.llmClient = None
+        else: self.llmClient = OpenAI()
 
     def prompt(self, prompt):
+        if self.simulate:
+            return "This is a simulated prompt. To turn off, disable the AVOID_TOEKN_USAGES flag in backend.py"
         response = self.llmClient.chat.completions.create(
             model="gpt-4o-mini",
             messages=[

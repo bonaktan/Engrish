@@ -8,9 +8,9 @@ import base64
 import speech_recognition as sr
 import ffmpeg
 from dotenv import load_dotenv
-
 import components
 
+AVOID_TOKEN_USAGES = True
 sio = socketio.AsyncServer(cors_allowed_origins="*")
 webAPI = web.Application()
 sio.attach(webAPI)
@@ -56,7 +56,7 @@ def disconnect(sid):
 
 if __name__ == "__main__":
     sttEngine = components.SpeechToText()
-    llmModel = components.LargeLanguageModel()
+    llmModel = components.LargeLanguageModel(simulate=AVOID_TOKEN_USAGES)
     checkerModel = components.GrammarChecker()
     ttsEngine = components.TextToSpeech(engineUsed="gtts")
     webAPI.router.add_get("/", index)
