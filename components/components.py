@@ -8,20 +8,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class SpeechToText:
-    def __init__(self, modelUsed="small"):
-        self.sttModel = whisper.load_model(modelUsed)
+    def __init__(self, modelUsed="small", simulate=False):
+        if simulate: self.sttModel = None
+        else: self.sttModel = whisper.load_model(modelUsed)
+        self.simulate = simulate
 
     def transcribe(self):
         # assuming that the input is cache.wav
+        if self.simulate: return "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
         transcription = self.sttModel.transcribe("postprocessed.wav")
         return transcription["text"]
 
 
 class GrammarChecker:
-    def __init__(self, engineUsed="language_tool"):
-        self.grammarChecker = language_tool_python.LanguageTool("en-PH")
+    def __init__(self, engineUsed="language_tool", simulate=False):
+        if simulate: self.grammarChecker = None
+        else: self.grammarChecker = language_tool_python.LanguageTool("en-PH")
+        self.simulate = simulate
 
     def check(self, text):
+        if self.simulate: return "Simulated Correction, disable AVOID_MEMORY_USAGE in backend.py"
+
         corrections = self.grammarChecker.check(text)
         # do some parsings, rn basic ass shit lang muna
         returnVal = ""
@@ -33,7 +40,7 @@ class GrammarChecker:
 
 
 class LargeLanguageModel:
-    def __init__(self, simulate):
+    def __init__(self, simulate=False):
         self.simulate = simulate
         if simulate:
             self.llmClient = None
@@ -41,7 +48,7 @@ class LargeLanguageModel:
 
     def prompt(self, prompt):
         if self.simulate:
-            return "This is a simulated prompt. To turn off, disable the AVOID_TOEKN_USAGES flag in backend.py"
+            return "This is a simulated prompt. To turn off, disable the AVOID_TOKEN_USAGES flag in backend.py"
         response = self.llmClient.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -55,8 +62,8 @@ class LargeLanguageModel:
         return response.choices[0].message.content
 
 
-class TextToSpeech:  # not working
-    def __init__(self, engineUsed="pyttsx3"):
+class TextToSpeech:  # pyttsx3 bugging
+    def __init__(self, engineUsed="pyttsx3", simulate=False):
         # valid engineUsed inputs: pyttsx3  |  gtts
         self.pyttsx3Engine = pyttsx3.init()
         self.engine = self.pyttsx3  # default

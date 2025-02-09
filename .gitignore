@@ -44,3 +44,4 @@ components/cache*
 components/preprocessed.wav
 components/postprocessed.wav
 components/__pycache__/
+certificates

@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 import components
 
 AVOID_TOKEN_USAGES = True
-sio = socketio.AsyncServer(cors_allowed_origins="*")
+AVOID_MEMORY_USAGE = True
+sio = socketio.AsyncServer(cors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)
 
@@ -55,9 +56,13 @@ def disconnect(sid):
 
 
 if __name__ == "__main__":
-    sttEngine = components.SpeechToText()
+    if AVOID_MEMORY_USAGE:
+        print("WARNING: STT and Grammar Checker are disabled.")
+    if AVOID_TOKEN_USAGES:
+        print("WARNING: LLM is disabled.")
+    sttEngine = components.SpeechToText(simulate=AVOID_MEMORY_USAGE)
     llmModel = components.LargeLanguageModel(simulate=AVOID_TOKEN_USAGES)
-    checkerModel = components.GrammarChecker()
+    checkerModel = components.GrammarChecker(simulate=AVOID_MEMORY_USAGE)
     ttsEngine = components.TextToSpeech(engineUsed="gtts")
     webAPI.router.add_get("/", index)
     web.run_app(webAPI, port=8765)
