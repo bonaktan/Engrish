@@ -12,14 +12,16 @@ export default function Home() {
     const [sidebarOpened, toggleOpen] = useReducer((state) => {return !state}, false )
     // eto main na frame ng app natin
     return (
-        <>
+        <div className="mainView">
             <SidebarView open={sidebarOpened} toggleSidebar={toggleOpen}/>
-            <main className="flex flex-col h-dvh">
+            <main className="appView flex flex-col">
                 <Header toggleSidebar={toggleOpen}/>
                 <ConversationView convo={convo} />
-                <CorrectionView correction={correction} />
-                <UserControls connected={connected}/>
+                <div className="controls">
+                    <CorrectionView correction={correction} />
+                    <UserControls connected={connected}/>
+                </div>
             </main>
-        </>
+        </div>
     );
 }

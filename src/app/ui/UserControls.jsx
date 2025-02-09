@@ -5,7 +5,6 @@ export default function UserControls({connected}) {
     const {isRecording, startRecording, stopRecording, audioBlob} = useUserControls()
     return (
         <div className="user-input flex-grow-0 flex-shrink-0 flex justify-evenly">
-            <p>Connected: {connected} </p>
             <button className="input-button" onClick={isRecording ? stopRecording : startRecording}>{isRecording ? "Recording" : "Record"}</button>
         </div>
     );
