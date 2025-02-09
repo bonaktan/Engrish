@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import imageEngrishHeader from "@/../public/sprites/header_engrish.png"
+import imageEngrishHeader from "@/../public/sprites/header_engrish.svg"
 export default function Header({ toggleSidebar }) {
     const version = "1.0.0";
     return (
