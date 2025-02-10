@@ -10,6 +10,8 @@
     --convo-shadow: #b2ae9a;
     --message-color: #b2ae9abf;
     --correction-color: #b2ae9a29;
+    --sidebar-color: #20294c;
+    --sidebar-text: #8793c2;
 }
 
 body {
@@ -67,8 +69,9 @@ body {
 }
 .controls {
     flex: 0 0 auto;
-    align-items: center;
+    
     display: flex;
+    align-items: center;
 }
 .correction-view {
     color: var(--text-color-bottom);
@@ -99,65 +102,49 @@ body {
 }
 .input-button {
     background-color: var(--correction-color);
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 2rem;
-    height: min-content
+    height: min-content;
+    width: 10rem;
 }
 
 .sideBar {
-    width: 5rem;
-    background-color: #6488ea; /* TODO: to be changed sa color scheme ng program */
+    height: 100dvh;
+    width: 20rem;
+    background-color: var(--sidebar-color); /* TODO: to be changed sa color scheme ng program */
     z-index: 1000;
-    top: 0;
-    left: 0;
     flex-direction: column;
     align-items: top;
     text-align: left;
     padding: 1rem;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-    flex: 0 0 15rem;
-}
-.sidebarheader {
-    flex: 0 0 auto;
-}
-.sidebarOptions {
-    margin: -0.5rem;
-    flex: 1 1 100%; /* baka need idebug? */
-}
-.sidebarOptions > .option {
-    margin: 0.5rem 0;
-}
-.sidebarOptions > .option > p {
-    display: flex;
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-.aboutUs {
-    flex: 0 0 auto;
-}
-#button {
-    position: relative;
-    left: 200px;
-    top: 35px;
-}
-#checkbox {
-    position: relative;
-    left: 155px;
-}
-#engrish {
-    position: relative;
-    left: 80px;
-}
-#gtts {
-    position: relative;
-    left: 75px;
-}
-#pyttsx3 {
-    position: relative;
-    left: 25px;
+    flex: 0 1 auto;
+    color: var(--sidebar-text)
 }
 
-.menu {
-    color: black;
-    cursor: pointer;
+.sideBar > .optionBar {
+    margin-bottom: 1rem;
+}
+.voice-option {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 0.5rem;
+}
+.slider {
+    display: flex;
+    width: 100%;
+}
+.hamburger {
+    color: #bbccfc;
+}
+.sideBar hr {
+    width: 100%;
+    color: #bbccfc
+}
+.sideBar > .emptyBar {
+    flex: 1 1 100%;
+}
+#recordImage {
+    height: 3rem
 }

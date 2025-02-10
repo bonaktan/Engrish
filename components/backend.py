@@ -1,13 +1,7 @@
 from aiohttp import web
-import asyncio
 import socketio
-from time import sleep
-import gtts, os, io
-import pyttsx3
 import base64
-import speech_recognition as sr
 import ffmpeg
-from dotenv import load_dotenv
 import components
 
 AVOID_TOKEN_USAGES = True
