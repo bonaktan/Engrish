@@ -2,12 +2,10 @@ from aiohttp import web
 import socketio
 import base64
 import ffmpeg
-from dotenv import load_dotenv
-
 import components
 AVOID_TOKEN_USAGES = True
 AVOID_MEMORY_USAGE = True
-sio = socketio.AsyncServer(async_mode='aiohttp', ccors_allowed_origins='*')
+sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)
 
