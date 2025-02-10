@@ -3,11 +3,11 @@ import { useState, useReducer, useEffect } from "react";
 import { Message } from "../backend/structures";
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:8765", {transports: ['websocket', 'polling', 'flashsocket']}) // TODO: convert this shit to a dynamic ip address dependent on its host
+export const socket = io("http://localhost:8765") // TODO: convert this shit to a dynamic ip address dependent on its host
 // i think need to irefactor
 export default function useConversation() {
     // RESPONSIBILITY: control Convo/Correction Views
-    const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "testing Engrish if the components are properly linked to each other - useConversation()")]);
+    const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "Hi! I'm ENGRISH, a chatbot that aims to simulate a human conversational partner. Talk to me about anything you like!")]);
     const [correction, setCorrection] = useState("-");
     const [connected, setConnected] = useState(socket.connected)
     useEffect(() => {

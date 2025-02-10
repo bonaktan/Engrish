@@ -55,8 +55,9 @@ if __name__ == "__main__":
         print("WARNING: STT and Grammar Checker are disabled.")
     if AVOID_TOKEN_USAGES:
         print("WARNING: LLM is disabled.")
+    conversationRecord = components.conversationHistory()
     sttEngine = components.SpeechToText(simulate=AVOID_MEMORY_USAGE)
-    llmModel = components.LargeLanguageModel(simulate=AVOID_TOKEN_USAGES)
+    llmModel = components.LargeLanguageModel(conversationRecord, simulate=AVOID_TOKEN_USAGES)
     checkerModel = components.GrammarChecker(simulate=AVOID_MEMORY_USAGE)
     ttsEngine = components.TextToSpeech(engineUsed="gtts")
     webAPI.router.add_get("/", index)

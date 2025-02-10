@@ -1,4 +1,4 @@
-import threading, asyncio  # for async shits
+import threading  # for async shits
 import whisper  # Speech-To-Text Engine
 import language_tool_python  # Grammar Checker Engine
 from openai import OpenAI  # LLM Engine
@@ -8,27 +8,36 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class SpeechToText:
     def __init__(self, modelUsed="small", simulate=False):
-        if simulate: self.sttModel = None
-        else: self.sttModel = whisper.load_model(modelUsed)
+        if simulate:
+            self.sttModel = None
+        else:
+            self.sttModel = whisper.load_model(modelUsed)
         self.simulate = simulate
 
     def transcribe(self):
         # assuming that the input is cache.wav
-        if self.simulate: return "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
+        if self.simulate:
+            return (
+                "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
+            )
         transcription = self.sttModel.transcribe("postprocessed.wav")
         return transcription["text"]
 
 
 class GrammarChecker:
     def __init__(self, engineUsed="language_tool", simulate=False):
-        if simulate: self.grammarChecker = None
-        else: self.grammarChecker = language_tool_python.LanguageTool("en-PH")
+        if simulate:
+            self.grammarChecker = None
+        else:
+            self.grammarChecker = language_tool_python.LanguageTool("en-PH")
         self.simulate = simulate
 
     def check(self, text):
-        if self.simulate: return "Simulated Correction, disable AVOID_MEMORY_USAGE in backend.py"
+        if self.simulate:
+            return "Simulated Correction, disable AVOID_MEMORY_USAGE in backend.py"
 
         corrections = self.grammarChecker.check(text)
         # do some parsings, rn basic ass shit lang muna
@@ -41,26 +50,30 @@ class GrammarChecker:
 
 
 class LargeLanguageModel:
-    def __init__(self, simulate=False):
+    def __init__(self, convoRecord, simulate=False):
+        self.convoRecord = convoRecord
         self.simulate = simulate
         if simulate:
             self.llmClient = None
-        else: self.llmClient = OpenAI()
+        else:
+            self.llmClient = OpenAI()
 
     def prompt(self, prompt):
+        self.convoRecord.user(prompt)
         if self.simulate:
-            return "This is a simulated prompt. To turn off, disable the AVOID_TOKEN_USAGES flag in backend.py"
-        response = self.llmClient.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant.",  # TODO: prompt programming
-                },
-                {"role": "user", "content": prompt},
-            ],
-        )
-        return response.choices[0].message.content
+            response = "This is a simulated prompt. To turn off, disable the AVOID_TOKEN_USAGES flag in backend.py"
+        else:
+            response = (
+                self.llmClient.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=self.convoRecord.history,
+                    user="Testing-00",
+                )
+                .choices[0]
+                .message.content
+            )
+        self.convoRecord.assistant(response)
+        return response
 
 
 class TextToSpeech:  # pyttsx3 bugging
@@ -91,17 +104,56 @@ class TextToSpeech:  # pyttsx3 bugging
         status = sounddevice.wait()  # Wait until file is done playing
 
 
+class conversationHistory:
+    def __init__(self):
+        self.userTemplate = {"role": "user", "content": ""}
+        self.assistantTemplate = {"role": "assistant", "content": ""}
+        self.history = [
+            {
+                "role": "developer",
+                "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
+            }
+        ]
+    def reset(self):
+         self.history = [
+            {
+                "role": "developer",
+                "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
+            }
+        ]
+    def user(self, prompt):
+        out = self.userTemplate.copy()
+        out["content"] = prompt
+        self.history.append(out)
+        self.cull()
+
+    def assistant(self, prompt):
+        out = self.assistantTemplate.copy()
+        out["content"] = prompt
+        self.history.append(out)
+        self.cull()
+
+    def cull(self):
+        if len(self.history) >= 8:
+            del self.history[1]
+
 if __name__ == "__main__":
     print("testing mode")
 
     print("testing: speech-to-text")
-    print(SpeechToText().transcribe("cache.wav"))
+    # print(SpeechToText().transcribe("cache.wav"))
 
     print("testing: llm")
     # print(LargeLanguageModel().prompt("the quick brown fox jumped over the lazy dog"))
 
     print("testing: grammar checker")
-    print(GrammarChecker().check("This are bad."))
+    # print(GrammarChecker().check("This are bad."))
 
     print("testing:text-to-speech")
-    TextToSpeech(engineUsed="gtts").speak("test")
+    # TextToSpeech(engineUsed="gtts").speak("test")
+    convo = conversationHistory()
+    llm = LargeLanguageModel(convo, simulate=False)
+    while True:
+        prompt = input(">>> ")
+        print(llm.prompt(prompt))
+        print(convo.history)
