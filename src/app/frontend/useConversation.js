@@ -3,7 +3,7 @@ import { useState, useReducer, useEffect } from "react";
 import { Message } from "../backend/structures";
 import { io } from "socket.io-client";
 
-export const socket = io("https://192.168.1.2:8765", {transports: ['websocket', 'polling', 'flashsocket']}) // TODO: convert this shit to a dynamic ip address dependent on its host
+export const socket = io("http://localhost:8765", {transports: ['websocket', 'polling', 'flashsocket']}) // TODO: convert this shit to a dynamic ip address dependent on its host
 // i think need to irefactor
 export default function useConversation() {
     // RESPONSIBILITY: control Convo/Correction Views
