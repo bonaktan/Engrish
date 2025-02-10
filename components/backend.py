@@ -22,9 +22,9 @@ def connect(sid, environ):
 
 @sio.event
 async def user_input(sid, userInput):
-    print("message ", userInput)
     if userInput == None:
         return
+    print("received input")
     # decoding b64-encoded wav file
     with open("preprocessed.wav", "wb") as fh:
         fh.write(base64.decodebytes(userInput.encode("ascii")))
@@ -48,7 +48,10 @@ async def user_input(sid, userInput):
 @sio.event
 def disconnect(sid):
     print("disconnect ", sid)
-
+@sio.event
+def reset(sid):
+    print("Convo Reset Requested")
+    conversationRecord.reset()
 
 if __name__ == "__main__":
     if AVOID_MEMORY_USAGE:

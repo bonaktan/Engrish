@@ -10,6 +10,10 @@ export default function useConversation() {
     const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "Hi! I'm ENGRISH, a chatbot that aims to simulate a human conversational partner. Talk to me about anything you like!")]);
     const [correction, setCorrection] = useState("-");
     const [connected, setConnected] = useState(socket.connected)
+    function reset() {
+        addConvo("resetConvesationPlease4124")
+        socket.emit("reset")
+    }
     useEffect(() => {
             function onConnect() {
                 setConnected(true)
@@ -41,9 +45,12 @@ export default function useConversation() {
                 socket.off("stt_output", onSTTOutput)
             }
         })
-    return {convo, correction, connected};
+    return {convo, correction, connected, reset};
 }
 
 function updateConvo(convo, message) {
+    if (message == "resetConvesationPlease4124") {
+        return [new Message("ai", "Hi! I'm ENGRISH, a chatbot that aims to simulate a human conversational partner. Talk to me about anything you like!")]
+    }
     return [...convo, new Message(message.sender, message.message)]; // WARN: no data processing is done
 }

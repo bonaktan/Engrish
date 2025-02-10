@@ -148,3 +148,10 @@ body {
 #recordImage {
     height: 3rem
 }
+#resetButton {
+    border:1px solid red;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 2rem;
+
+}

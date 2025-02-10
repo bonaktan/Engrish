@@ -5,6 +5,7 @@ from openai import OpenAI  # LLM Engine
 import pyttsx3, gtts  # TextToSpeech Engines
 import sounddevice, soundfile  # for playing back audio in gTTS Engine
 from dotenv import load_dotenv
+import json  # for convo history dumps
 
 load_dotenv()
 
@@ -114,28 +115,38 @@ class conversationHistory:
                 "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
             }
         ]
+        self.fullHistory = self.history.copy()
+
     def reset(self):
-         self.history = [
+        respondentNo = input("Respondent Number: " )
+        with open("logs.txt", "a") as f:
+            f.write(f"Respondent No. {respondentNo}\n{json.dumps(self.fullHistory)}\n\n\n\n")
+        self.history = [
             {
                 "role": "developer",
                 "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
             }
         ]
+        self.fullHistory = self.history.copy()
+        print('Dumped')
     def user(self, prompt):
         out = self.userTemplate.copy()
         out["content"] = prompt
         self.history.append(out)
+        self.fullHistory.append(out)
         self.cull()
 
     def assistant(self, prompt):
         out = self.assistantTemplate.copy()
         out["content"] = prompt
         self.history.append(out)
+        self.fullHistory.append(out)
         self.cull()
 
     def cull(self):
         if len(self.history) >= 8:
             del self.history[1]
+
 
 if __name__ == "__main__":
     print("testing mode")

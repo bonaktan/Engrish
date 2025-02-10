@@ -1,4 +1,4 @@
-export default function SidebarView({ open, toggleSidebar }) {
+export default function SidebarView({ open, toggleSidebar, reset }) {
     // dito ka magtrabaho sa design and technicals, if need ng tulong sa js call me
     return (
         <div className={"sideBar " + (open ? "flex" : "hidden")}>
@@ -9,11 +9,11 @@ export default function SidebarView({ open, toggleSidebar }) {
                 <div className="voice-options">
                     <div className="voice-option">
                         <p>pyttsx3 (offline)</p>
-                        <input type="radio" name="voice" />
+                        <input type="radio" readOnly name="voice" />
                     </div>
                     <div className="voice-option">
                         <p>gTTS (online)</p>
-                        <input type="radio" name="voice" />
+                        <input type="radio" checked readOnly name="voice" />
                     </div>
                 </div>
             </div>
@@ -26,8 +26,13 @@ export default function SidebarView({ open, toggleSidebar }) {
                         <input type="range" min="1" max="5" value="3" readOnly className="slider" />
                         <span className="icon">🐇</span>
                     </div>
-                    <p style={{fontSize: "0.75rem"}}>Toggle the slider to adjust the voice speed.</p> {/* font-size: 10px*/}
+                    <p style={{ fontSize: "0.75rem" }}>Toggle the slider to adjust the voice speed.</p> {/* font-size: 10px*/}
                 </div>
+            </div>
+            <div className="optionBar">
+                <p>Reset Conversation</p>
+                <hr />
+                <button id="resetButton" onClick={reset}>Reset this Conversation</button>
             </div>
             <div className="emptyBar"></div>
             <div className="about">
@@ -35,10 +40,10 @@ export default function SidebarView({ open, toggleSidebar }) {
                 <hr />
                 <div className="explanations">
                     <p>
-                        This application, ENGRISH: The Perception of ICT Students Regarding an AI-Based Language Learning Software, is designed solely for
-                        academic and research purposes. The data collected will be used to analyze user perceptions and experiences with AI-based language
-                        learning tools.
+                        This application, ENGRISH: The Perception of ICT Students Regarding an AI-Based Language Learning Software, is designed solely
+                        for academic and research purposes.
                     </p>
+                    <p>The data collected will be used to analyze user perceptions and experiences with AI-based language learning tools.</p>
                 </div>
             </div>
         </div>
