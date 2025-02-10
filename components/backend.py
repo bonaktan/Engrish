@@ -2,16 +2,12 @@ from aiohttp import web
 import socketio
 import base64
 import ffmpeg
+from dotenv import load_dotenv
+
 import components
-import ssl
-import aiohttp_cors
 AVOID_TOKEN_USAGES = True
 AVOID_MEMORY_USAGE = True
-sio = socketio.AsyncServer(async_mode='aiohttp', ccors_allowed_origins=['*'])
-ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-ssl_context.load_cert_chain(
-    "../certificates/ResearchGroup2.crt", "../certificates/ResearchGroup2Private.key"
-)
+sio = socketio.AsyncServer(async_mode='aiohttp', ccors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)
 
@@ -66,19 +62,7 @@ if __name__ == "__main__":
     checkerModel = components.GrammarChecker(simulate=AVOID_MEMORY_USAGE)
     ttsEngine = components.TextToSpeech(engineUsed="gtts")
     webAPI.router.add_get("/", index)
-    cors = aiohttp_cors.setup(
-        webAPI,
-        defaults={
-            "*": aiohttp_cors.ResourceOptions(
-                allow_credentials=True, expose_headers="*", allow_headers="*"
-            )
-        },
-    )
 
-    for route in list(webAPI.router.routes()): 
-        # print(dir(route.resource.raw_match()))
-        if route.resource.raw_match("/socket.io/"): continue
-        cors.add(route)
-    web.run_app(webAPI, port=8765, ssl_context=ssl_context)
+    web.run_app(webAPI, port=8765)
 
 # test sentence: I do be testing ENGRISH right now, does this working now?

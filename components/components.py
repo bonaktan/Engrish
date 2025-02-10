@@ -5,6 +5,7 @@ from openai import OpenAI  # LLM Engine
 import pyttsx3, gtts  # TextToSpeech Engines
 import sounddevice, soundfile  # for playing back audio in gTTS Engine
 from dotenv import load_dotenv
+
 load_dotenv()
 
 class SpeechToText:
