@@ -7,7 +7,7 @@ export default function UserControls({connected}) {
     const {isRecording, startRecording, stopRecording, audioBlob} = useUserControls()
     return (
         <div className="user-input flex-grow-0 flex-shrink-0 flex justify-evenly">
-            <button className="input-button" onClick={isRecording ? stopRecording : startRecording}>
+            <button className={"input-button " + (isRecording ? "bg-red-300" : "bg-[#b2ae9a29]")} onClick={isRecording ? stopRecording : startRecording}>
                 <Image src={imageWaveform} alt="Record" id="recordImage"/>
             </button>
         </div>

@@ -24,7 +24,7 @@ class SpeechToText:
             return (
                 "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
             )
-        transcription = self.sttModel.transcribe("postprocessed.wav")
+        transcription = self.sttModel.transcribe("postprocessed.wav", language="en")
         return transcription["text"]
 
 

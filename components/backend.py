@@ -3,8 +3,8 @@ import socketio
 import base64
 import ffmpeg
 import components
-AVOID_TOKEN_USAGES = False
-AVOID_MEMORY_USAGE = False
+AVOID_TOKEN_USAGES = True
+AVOID_MEMORY_USAGE = True
 sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)

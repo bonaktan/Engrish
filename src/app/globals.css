@@ -102,7 +102,7 @@ body {
     flex: 0 0 40%;
 }
 .input-button {
-    background-color: var(--correction-color);
+    /* background-color: var(--correction-color); */
     padding: 0.5rem;
     border-radius: 2rem;
     height: min-content;
