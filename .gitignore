@@ -46,3 +46,5 @@ components/postprocessed.wav
 components/__pycache__/
 components/logs.txt
 certificates
+grammarchecker
+src/app/testing

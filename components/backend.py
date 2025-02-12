@@ -3,8 +3,8 @@ import socketio
 import base64
 import ffmpeg
 import components
-AVOID_TOKEN_USAGES = True
-AVOID_MEMORY_USAGE = True
+AVOID_TOKEN_USAGES = False
+AVOID_MEMORY_USAGE = False
 sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)
@@ -65,6 +65,8 @@ if __name__ == "__main__":
     ttsEngine = components.TextToSpeech(engineUsed="gtts")
     webAPI.router.add_get("/", index)
 
-    web.run_app(webAPI, port=8765)
+    web.run_app(webAPI, host="localhost", port=8766)
+    
 
 # test sentence: I do be testing ENGRISH right now, does this working now?
+

@@ -29,25 +29,54 @@ class SpeechToText:
 
 
 class GrammarChecker:
-    def __init__(self, engineUsed="language_tool", simulate=False):
-        if simulate:
-            self.grammarChecker = None
-        else:
-            self.grammarChecker = language_tool_python.LanguageTool("en-PH")
+    def __init__(self, simulate=False):
         self.simulate = simulate
+        if simulate:
+            self.llmClient = None
+        else:
+            self.llmClient = OpenAI()
 
-    def check(self, text):
+    def check(self, prompt):
         if self.simulate:
-            return "Simulated Correction, disable AVOID_MEMORY_USAGE in backend.py"
+            response = "This is a simulated prompt. To turn off, disable the AVOID_TOKEN_USAGES flag in backend.py"
+        else:
+            response = (
+                self.llmClient.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{
+                        "role": "developer",
+                        "content": "You are a helpful assistants that aims to correct my grammar. Every sentence I make, please give as much grammatical mistakes i make as possible in bullet form within 1 sentence.",  # TODO: prompt programming
+                    },
+                        {"role": "user",
+                        "content": prompt}
+                    ],
+                    user="Testing-00",
+                )
+                .choices[0]
+                .message.content
+            )
+        return response
+    # def __init__(self, engineUsed="language_tool", simulate=False):
+    #     if simulate:
+    #         self.grammarChecker = None
+    #     else:
+    #         self.grammarChecker = language_tool_python.LanguageTool("en-PH", config={
+    #             'languageModel': "D:/bon/Engrish/grammarchecker/en",
+    #         })
+    #     self.simulate = simulate
 
-        corrections = self.grammarChecker.check(text)
-        # do some parsings, rn basic ass shit lang muna
-        returnVal = ""
-        for error in corrections:
-            returnVal += f"{error.message} in character {error.offsetInContext+1}. \n"
-        suggestedSentence = language_tool_python.utils.correct(text, corrections)
-        returnVal += f"Suggested Sentence: {suggestedSentence}"
-        return returnVal
+    # def check(self, text):
+    #     if self.simulate:
+    #         return "Simulated Correction, disable AVOID_MEMORY_USAGE in backend.py"
+
+    #     corrections = self.grammarChecker.check(text)
+    #     # do some parsings, rn basic ass shit lang muna
+    #     returnVal = ""
+    #     for error in corrections:
+    #         returnVal += f"{error.message} in character {error.offsetInContext+1}. \n"
+    #     suggestedSentence = language_tool_python.utils.correct(text, corrections)
+    #     returnVal += f"Suggested Sentence: {suggestedSentence}"
+    #     return returnVal
 
 
 class LargeLanguageModel:
@@ -163,8 +192,8 @@ if __name__ == "__main__":
     print("testing:text-to-speech")
     # TextToSpeech(engineUsed="gtts").speak("test")
     convo = conversationHistory()
-    llm = LargeLanguageModel(convo, simulate=False)
+    llm = GrammarChecker()
     while True:
         prompt = input(">>> ")
-        print(llm.prompt(prompt))
+        print(llm.check(prompt))
         print(convo.history)
