@@ -1,0 +1,37 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ENGRISH
+message: >-
+  Use ENGRISH to fix your Engrish so that it turns into
+  English.
+type: software
+authors:
+  - given-names: Jonathan
+    family-names: Asuncion
+    email: asuncion.jonathan.2007@gmail.com
+  - given-names: Emmanuel
+    family-names: Martin
+    email: em250411@gmail.com
+  - given-names: Rodhel
+    family-names: Dungca
+    email: dungcarodhel@gmail.com
+  - given-names: Symon
+    family-names: Gonzaga
+    email: symongonzaga0826203@gmail.com
+  - given-names: Fritz Ujay
+    family-names: Blasco
+    email: fritzujaybb@gmail.com
+repository-code: 'https://github.com/bonaktan/Engrish'
+abstract: >-
+  ENGRISH is a proof-of-concept application that utilizes AI
+  to have a conversational partner that corrects your
+  grammar in real time.
+keywords:
+  - AI
+  - Grammar
+license: GPL-3.0
+commit: 2802b41
+version: 1.0.0
+date-released: '2025-02-12'
