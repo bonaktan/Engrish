@@ -48,3 +48,4 @@ components/logs.txt
 certificates
 grammarchecker
 src/app/testing
+.vscode

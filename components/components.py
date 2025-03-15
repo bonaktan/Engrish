@@ -45,7 +45,7 @@ class GrammarChecker:
                     model="gpt-4o-mini",
                     messages=[{
                         "role": "developer",
-                        "content": "You are a helpful assistants that aims to correct my grammar. Every sentence I make, please give as much grammatical mistakes i make as possible in bullet form within 1 sentence.",  # TODO: prompt programming
+                        "content": "You are a helpful assistant that aims to point out mistakes in my grammar, disregarding typographical mistakes. You will give every mistake i make in bullet form within 1 sentence long. And you will give a corrected version of it at the end of your prompt.",  # TODO: prompt programming
                     },
                         {"role": "user",
                         "content": prompt}
@@ -138,18 +138,9 @@ class conversationHistory:
     def __init__(self):
         self.userTemplate = {"role": "user", "content": ""}
         self.assistantTemplate = {"role": "assistant", "content": ""}
-        self.history = [
-            {
-                "role": "developer",
-                "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
-            }
-        ]
-        self.fullHistory = self.history.copy()
+        self.reset()
 
     def reset(self):
-        respondentNo = input("Respondent Number: " )
-        with open("logs.txt", "a") as f:
-            f.write(f"Respondent No. {respondentNo}\n{json.dumps(self.fullHistory)}\n\n\n\n")
         self.history = [
             {
                 "role": "developer",
