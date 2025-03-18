@@ -5,7 +5,7 @@ import UserControls from "@/app/ui/UserControls";
 import { useState, useReducer } from "react";
 import useConversation from "./frontend/useConversation";
 import Header from "@/app/ui/Header";
-import SidebarView from "./ui/SidebarView";
+import SettingsView from "./ui/SettingsView";
 
 export default function Home() {
     const { convo, correction, connected, reset } = useConversation();
@@ -15,13 +15,16 @@ export default function Home() {
     }, false);
     // eto main na frame ng app natin
     return (
-        <div className="mainView flex flex-col">
-            <Header toggleSidebar={toggleOpen} />
-            <ConversationView convo={convo} />
-            <div className="controls">
-                <CorrectionView correction={correction} />
-                <UserControls connected={connected} />
+        <>
+            <div className="mainView flex flex-col">
+                <Header toggleSidebar={toggleOpen} />
+                <ConversationView convo={convo} />
+                <div className="controls">
+                    <CorrectionView correction={correction} />
+                    <UserControls connected={connected} />
+                </div>
             </div>
-        </div>
+            <SettingsView open={sidebarOpened}/>
+        </>
     );
 }

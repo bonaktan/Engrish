@@ -1,6 +1,10 @@
 import Image from "next/image";
 import imageEngrishHeader from "@/../public/sprites/header_engrish.svg";
 import imageOptionsHeader from "@/../public/sprites/hamburg.svg";
+import { RiResetLeftFill } from "react-icons/ri";
+import { MdDarkMode } from "react-icons/md";
+import { PiLightningLight } from "react-icons/pi";
+import darkModeHeader from "@/../public/sprites/DarkMode.png";
 export default function Header({ toggleSidebar }) {
     const version = "1.0.0";
     return (
@@ -14,8 +18,16 @@ export default function Header({ toggleSidebar }) {
                 </div>
             </div>
             <div className="interactives">
-                <button>Reset</button>
-                <button>Data Saver</button>
+                <button>
+                    <RiResetLeftFill id="sprite"/>
+                </button>
+                <button>
+                    <MdDarkMode id="sprite"/>
+                </button>
+                <button className="flex gap-2 items-center">
+                    <PiLightningLight id="sprite"/>
+                    <p className="pr-2">Data Saver</p>
+                </button>
             </div>
         </div>
     );
