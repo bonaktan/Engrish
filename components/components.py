@@ -15,7 +15,7 @@ class SpeechToText:
         if simulate:
             self.sttModel = None
         else:
-            self.sttModel = whisper.load_model(modelUsed)
+            self.sttModel = OpenAI()
         self.simulate = simulate
 
     def transcribe(self):
@@ -24,8 +24,9 @@ class SpeechToText:
             return (
                 "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
             )
-        transcription = self.sttModel.transcribe("postprocessed.wav", language="en")
-        return transcription["text"]
+        with open("./preprocessed.wav", "rb") as audio_file:
+            transcription = self.sttModel.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="text")
+        return transcription
 
 
 class GrammarChecker:

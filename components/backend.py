@@ -3,8 +3,8 @@ import socketio
 import base64
 import ffmpeg
 import components
-AVOID_TOKEN_USAGES = True
-AVOID_MEMORY_USAGE = True
+AVOID_TOKEN_USAGES = False
+AVOID_MEMORY_USAGE = False
 sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins='*')
 webAPI = web.Application()
 sio.attach(webAPI)
@@ -29,12 +29,12 @@ async def user_input(sid, userInput):
     with open("preprocessed.wav", "wb") as fh:
         fh.write(base64.decodebytes(userInput.encode("ascii")))
     # ffmpeg-deborking using wav
-    (
-        ffmpeg.input("preprocessed.wav")
-        .output("postprocessed.wav")
-        .overwrite_output()
-        .run(capture_stdout=False, capture_stderr=False)
-    )
+    # (
+    #     ffmpeg.input("preprocessed.wav")
+    #     .output("postprocessed.wav")
+    #     .overwrite_output()
+    #     .run(capture_stdout=False, capture_stderr=False)
+    # )
     sttOut = sttEngine.transcribe()
     await sio.emit("stt_output", sttOut)
     checkerOut = checkerModel.check(sttOut)
