@@ -24,7 +24,7 @@ export default function Home() {
                     <UserControls connected={connected} />
                 </div>
             </div>
-            <SettingsView open={sidebarOpened}/>
+            {/* <SettingsView open={sidebarOpened}/>  temporary deactivation*/}
         </>
     );
 }
