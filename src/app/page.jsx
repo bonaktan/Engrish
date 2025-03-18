@@ -9,19 +9,19 @@ import SidebarView from "./ui/SidebarView";
 
 export default function Home() {
     const { convo, correction, connected, reset } = useConversation();
-    const [sidebarOpened, toggleOpen] = useReducer((state) => {console.log("toggle"); return !state}, false )
+    const [sidebarOpened, toggleOpen] = useReducer((state) => {
+        console.log("toggle");
+        return !state;
+    }, false);
     // eto main na frame ng app natin
     return (
-        <div className="mainView">
-            <SidebarView open={sidebarOpened} toggleSidebar={toggleOpen} reset={reset}/>
-            <main className="appView flex flex-col">
-                <Header toggleSidebar={toggleOpen}/>
-                <ConversationView convo={convo} />
-                <div className="controls">
-                    <CorrectionView correction={correction} />
-                    <UserControls connected={connected}/>
-                </div>
-            </main>
+        <div className="mainView flex flex-col">
+            <Header toggleSidebar={toggleOpen} />
+            <ConversationView convo={convo} />
+            <div className="controls">
+                <CorrectionView correction={correction} />
+                <UserControls connected={connected} />
+            </div>
         </div>
     );
 }

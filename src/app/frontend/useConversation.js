@@ -7,7 +7,7 @@ export const socket = io("http://localhost:8766") // TODO: convert this shit to 
 // i think need to irefactor
 export default function useConversation() {
     // RESPONSIBILITY: control Convo/Correction Views
-    const [convo, addConvo] = useReducer(updateConvo, [new Message("ai", "Hi! I'm ENGRISH, a chatbot that aims to simulate a human conversational partner. Talk to me about anything you like!")]);
+    const [convo, addConvo] = useReducer(updateConvo, []);
     const [correction, setCorrection] = useState("-");
     const [connected, setConnected] = useState(socket.connected)
     function reset() {
