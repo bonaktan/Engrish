@@ -17,14 +17,14 @@ export default function Home() {
     return (
         <>
             <div className="mainView flex flex-col">
-                <Header toggleSidebar={toggleOpen} />
+                <Header toggleSidebar={toggleOpen} reset={reset}/>
                 <ConversationView convo={convo} />
                 <div className="controls">
                     <CorrectionView correction={correction} />
                     <UserControls connected={connected} />
                 </div>
             </div>
-            <SettingsView open={sidebarOpened}/>
+            {/* <SettingsView open={sidebarOpened}/> */}
         </>
     );
 }

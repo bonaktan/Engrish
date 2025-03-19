@@ -25,7 +25,8 @@ class SpeechToText:
                 "Simulates STT Transcription, disable AVOID_MEMORY_USAGE in backend.py"
             )
         with open("./preprocessed.wav", "rb") as audio_file:
-            transcription = self.sttModel.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="text")
+
+            transcription = self.sttModel.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="text", language="en")
         return transcription
 
 
@@ -145,7 +146,7 @@ class conversationHistory:
         self.history = [
             {
                 "role": "developer",
-                "content": "You are a helpful human-like assistants that aims to be my conversational partner. You will always answer every question I have in a sentence form within 1 paragraph.",  # TODO: prompt programming
+                "content": "You are a helpful human-like assistant that aims to be my conversational partner. Our convversation will take the form of an agent-customer, where you will be the customer and I will be the agent. You will ask me regarding a problemm you're having with a speccific product or solution, and I'll try to provide a solution for that. The conversation will continue until I resolve your question.",  # TODO: prompt programming
             }
         ]
         self.fullHistory = self.history.copy()

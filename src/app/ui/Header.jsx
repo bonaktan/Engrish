@@ -5,7 +5,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { MdDarkMode } from "react-icons/md";
 import { PiLightningLight } from "react-icons/pi";
 import darkModeHeader from "@/../public/sprites/DarkMode.png";
-export default function Header({ toggleSidebar }) {
+export default function Header({ toggleSidebar, reset }) {
     const version = "1.0.0";
     return (
         <div className="header">
@@ -18,7 +18,7 @@ export default function Header({ toggleSidebar }) {
                 </div>
             </div>
             <div className="interactives">
-                <button>
+                <button onClick={reset}>
                     <RiResetLeftFill id="sprite"/>
                 </button>
                 <button>
