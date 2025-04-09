@@ -10,7 +10,6 @@ export default function ConversationView({ convo }) {
                     <div className="emphasizer-shadow">
                         <div className="emphasizer-box">
                             <p>I&apos;m excited to help you boost your grammar skills! Let&apos;s get started together!</p>
-                            <p>TODO PA TO TANGINA PLEASE PAKIREVISE</p>
                         </div>
                     </div>
                 </div>

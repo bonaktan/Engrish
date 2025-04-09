@@ -50,7 +50,7 @@ export default function useConversation() {
 
 function updateConvo(convo, message) {
     if (message == "resetConvesationPlease4124") {
-        return [new Message("ai", "Hi! I'm ENGRISH, a chatbot that aims to simulate a human conversational partner. Talk to me about anything you like!")]
+        return []
     }
     return [...convo, new Message(message.sender, message.message)]; // WARN: no data processing is done
 }
