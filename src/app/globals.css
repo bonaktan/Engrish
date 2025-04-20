@@ -166,5 +166,42 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--convo-shadow);
-    padding: 2rem;
+    height: 20rem;
+    width: 75rem;
+    border-radius: 2rem;
+}
+
+.settingsHeader {
+    border-bottom: #000 solid 1px;
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.settingsMain {
+    padding: 1rem 2rem;
+    display: flex;
+}
+
+.settingsSelector {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.settingsOptions {
+    flex: 0 0 70%;
+    padding: 0 2rem
+}
+
+.settingsSection {
+    margin-bottom: 1rem
+}
+.settingsSection > #header {
+    font-weight: 700;
+    border-bottom: 1px var(--text-color-top) solid;
+}
+#main-voice > div {
+    display: flex;
+    justify-content: space-between;
+    
 }

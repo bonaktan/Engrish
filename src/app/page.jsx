@@ -12,7 +12,7 @@ export default function Home() {
     const [sidebarOpened, toggleOpen] = useReducer((state) => {
         console.log("toggle");
         return !state;
-    }, false);
+    }, true);
     // eto main na frame ng app natin
     return (
         <>
@@ -24,7 +24,7 @@ export default function Home() {
                     <UserControls connected={connected} />
                 </div>
             </div>
-            {/* <SettingsView open={sidebarOpened}/> */}
+            <SettingsView sidebarOpened={sidebarOpened} toggleSidebar={toggleOpen}/>
         </>
     );
 }
