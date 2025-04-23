@@ -49,3 +49,6 @@ certificates
 grammarchecker
 src/app/testing
 .vscode
+
+# for this branch only
+components

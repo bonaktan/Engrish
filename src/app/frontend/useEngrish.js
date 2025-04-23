@@ -1,18 +1,17 @@
 "use client"
 import { createContext, useEffect, useReducer, useRef, useState } from "react"
 import { Message } from "../backend/structures";
-import { io } from "socket.io-client";
 
 export const EngrishContext = createContext(null)
-export const socket = io("http://localhost:8766")
+
 
 export const EngrishProvider = ({children}) => {
     const [sidebarOpened, toggleSidebar] = useReducer((state) => {
         console.log("toggle");
         return !state;
-    }, true);
+    }, false);
     const [correction, setCorrection] = useState("-");
-    const [connected, setConnected] = useState(socket.connected)
+    const [connected, setConnected] = useState(false)
     const [convo, addConvo] = useReducer((convo, message) => {
         if (message == "resetConvesationPlease4124") {
             return []
@@ -22,40 +21,8 @@ export const EngrishProvider = ({children}) => {
 
     function reset() {
         addConvo("resetConvesationPlease4124")
-        socket.emit("reset")
     }
-    useEffect(() => {
-        function onConnect() {
-            setConnected(true)
-        }
-        function onDisconnect() {
-            setConnected(false)
-        }
-        function onGrammarChecker(correction) {
-            setCorrection(correction)
-        }
-        function onLLMOutput(output) {
-            addConvo(new Message("ai", output))
-        }
-        function onSTTOutput(output) {
-            addConvo(new Message("user", output))
-        }
     
-        socket.on("connect", onConnect)
-        socket.on("disconnect", onDisconnect)
-        socket.on("grammar_check", onGrammarChecker)
-        socket.on("llm_output", onLLMOutput)
-        socket.on("stt_output", onSTTOutput)
-
-        return () => {
-            socket.off("connect", onConnect)
-            socket.off("disconnect", onDisconnect)
-            socket.off("grammar_check", onGrammarChecker)
-            socket.off("llm_output", onLLMOutput)
-            socket.off("stt_output", onSTTOutput)
-        }
-    })
-
     // RESPONSIBILITY: control UserControls
     const [isRecording, setIsRecording] = useState(false);
     const [audioStream, setAudioStream] = useState(null);
@@ -111,9 +78,6 @@ export const EngrishProvider = ({children}) => {
     }, [audioStream]);
 
     function startRecording() {
-        console.log("start");
-        // START: recording of voices
-        // PLAN: record voice, encode it to a binary object, transmit, decode, and do processing shits
         mediaRecorder.start();
         setIsRecording(true);
         setRecordingTime(0);
@@ -140,10 +104,6 @@ export const EngrishProvider = ({children}) => {
     }
     // wait until blob changes
     // bug: it triggers on first load
-    useEffect(() => {
-        console.log(audioBlob);
-        socket.emit("user_input", audioBlob); // TODO: to be replaced w/ user mic input
-    }, [audioBlob]);
     return (
         <EngrishContext.Provider value={{
             convo, correction, connected, reset,
