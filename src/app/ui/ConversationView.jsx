@@ -1,4 +1,9 @@
-export default function ConversationView({ convo }) {
+import { useContext } from "react";
+import { EngrishContext } from "../frontend/useEngrish";
+
+export default function ConversationView() {
+    const {convo} = useContext(EngrishContext)
+    
     // convo is an array taht contains the convo history betwen user and ai
     // string bawat item sa loob ng convo (baka maging object soon)
     return (

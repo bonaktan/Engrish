@@ -1,5 +1,7 @@
-import { useState } from "react";
-export default function SettingsView({ sidebarOpened, toggleSidebar, reset }) {
+import { useState, useContext } from "react";
+import { EngrishContext } from "../frontend/useEngrish";
+export default function SettingsView() {
+    const { sidebarOpened, toggleSidebar, reset } = useContext(EngrishContext)
     // TODO: Accessibility Options: allow ot exit SettingsView with escape
     const [settingsOptions, setSettingsOptions] = useState(0)
     return (

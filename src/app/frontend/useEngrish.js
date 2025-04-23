@@ -1,8 +1,61 @@
-"use client";
+"use client"
+import { createContext, useEffect, useReducer, useRef, useState } from "react"
+import { Message } from "../backend/structures";
+import { io } from "socket.io-client";
 
-import { useEffect, useReducer, useState, useRef } from "react";
-import { socket } from "./useConversation";
-export default function useUserControls() { 
+export const EngrishContext = createContext(null)
+export const socket = io("http://localhost:8766")
+
+export const EngrishProvider = ({children}) => {
+    const [sidebarOpened, toggleSidebar] = useReducer((state) => {
+        console.log("toggle");
+        return !state;
+    }, true);
+    const [correction, setCorrection] = useState("-");
+    const [connected, setConnected] = useState(socket.connected)
+    const [convo, addConvo] = useReducer((convo, message) => {
+        if (message == "resetConvesationPlease4124") {
+            return []
+        }
+        return [...convo, new Message(message.sender, message.message)];
+    }, []);
+
+    function reset() {
+        addConvo("resetConvesationPlease4124")
+        socket.emit("reset")
+    }
+    useEffect(() => {
+        function onConnect() {
+            setConnected(true)
+        }
+        function onDisconnect() {
+            setConnected(false)
+        }
+        function onGrammarChecker(correction) {
+            setCorrection(correction)
+        }
+        function onLLMOutput(output) {
+            addConvo(new Message("ai", output))
+        }
+        function onSTTOutput(output) {
+            addConvo(new Message("user", output))
+        }
+    
+        socket.on("connect", onConnect)
+        socket.on("disconnect", onDisconnect)
+        socket.on("grammar_check", onGrammarChecker)
+        socket.on("llm_output", onLLMOutput)
+        socket.on("stt_output", onSTTOutput)
+
+        return () => {
+            socket.off("connect", onConnect)
+            socket.off("disconnect", onDisconnect)
+            socket.off("grammar_check", onGrammarChecker)
+            socket.off("llm_output", onLLMOutput)
+            socket.off("stt_output", onSTTOutput)
+        }
+    })
+
     // RESPONSIBILITY: control UserControls
     const [isRecording, setIsRecording] = useState(false);
     const [audioStream, setAudioStream] = useState(null);
@@ -91,5 +144,13 @@ export default function useUserControls() {
         console.log(audioBlob);
         socket.emit("user_input", audioBlob); // TODO: to be replaced w/ user mic input
     }, [audioBlob]);
-    return { isRecording, startRecording, stopRecording };
+    return (
+        <EngrishContext.Provider value={{
+            convo, correction, connected, reset,
+            isRecording, startRecording, stopRecording,
+            sidebarOpened, toggleSidebar
+        }}>
+            {children}
+        </EngrishContext.Provider>
+    )
 }
