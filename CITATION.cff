@@ -10,22 +10,22 @@ type: software
 authors:
   - given-names: Jonathan
     family-names: Asuncion
-    email: asuncion.jonathan.2007@gmail.com
+    email: J.Asuncion+ENGRISH@bonnybonnybonaktan.xyz
   - given-names: Emmanuel
     family-names: Martin
-    email: em250411@gmail.com
+    email: E.Martin+ENGRISH@bonnybonnybonaktan.xyz
   - given-names: Stephen Dan Bryd
     family-names: Menoy
-    email: phtesne@gmail.com
+    email: SDB.Menoy+ENGRISH@bonnybonnybonaktan.xyz
   - given-names: Rodhel
     family-names: Dungca
-    email: dungcarodhel@gmail.com
+    email: R.Dungca+ENGRISH@bonnybonnybonaktan.xyz
   - given-names: Symon
     family-names: Gonzaga
-    email: symongonzaga0826203@gmail.com
+    email: S.Gonzaga+ENGRISH@bonnybonnybonaktan.xyz
   - given-names: Fritz Ujay
     family-names: Blasco
-    email: fritzujaybb@gmail.com
+    email: FU.Blasco+ENGRISH@bonnybonnybonaktan.xyz
 repository-code: 'https://github.com/bonaktan/Engrish'
 abstract: >-
   ENGRISH is a proof-of-concept application that utilizes AI
